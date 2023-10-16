@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../prisma.service';
 import { PrismaUserMapper } from '../mappers/prisma-users-mapper';
-import { User } from 'src/domain/users/entities/user';
-import { UsersRepository } from 'src/domain/users/repositories/user-repository';
+import { User } from '@domain/users/entities/user';
+import { UsersRepository } from '@domain/users/repositories/user-repository';
 
 @Injectable()
 export class PrismaUserRepository implements UsersRepository {

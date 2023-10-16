@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PixKeysRepository } from '../repositories/pix-keys-repository';
-import { UsersRepository } from 'src/domain/users/repositories/user-repository';
+import { UsersRepository } from '@domain/users/repositories/user-repository';
 
 @Injectable()
 export class GetPixKeys {

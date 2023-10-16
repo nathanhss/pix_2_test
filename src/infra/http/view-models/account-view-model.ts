@@ -1,4 +1,4 @@
-import { Account } from 'src/domain/account/entities/account';
+import { Account } from '@domain/account/entities/account';
 
 export class AccountViewModel {
   static toHTTP(account: Account) {

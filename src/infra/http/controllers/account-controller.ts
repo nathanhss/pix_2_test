@@ -1,5 +1,5 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { GetAccount } from 'src/domain/account/use-cases/get-account';
+import { GetAccount } from '@domain/account/use-cases/get-account';
 import { AccountViewModel } from '../view-models/account-view-model';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
 

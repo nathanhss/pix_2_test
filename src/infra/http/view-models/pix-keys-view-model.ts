@@ -1,4 +1,4 @@
-import { PixKeys } from 'src/domain/pixKeys/entities/pix-keys';
+import { PixKeys } from '@domain/pixKeys/entities/pix-keys';
 
 export class PixKeyViewModel {
   static toHTTP(pixKey: PixKeys) {

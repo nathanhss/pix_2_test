@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { PixKeys } from '../entities/pix-keys';
 import { PixKeysRepository } from '../repositories/pix-keys-repository';
-import { UsersRepository } from 'src/domain/users/repositories/user-repository';
+import { UsersRepository } from '@domain/users/repositories/user-repository';
 
 export interface CreatePixKeyProps {
   cpf: string;
@@ -18,10 +18,6 @@ export class CreatePixKey {
 
   async execute(pixKeyData: CreatePixKeyProps): Promise<PixKeys> {
     const existentUser = await this.usersRepository.find(pixKeyData.cpf);
-    console.log(
-      '🚀 ~ file: create-pix-key.ts:21 ~ CreatePixKey ~ execute ~ existentUser:',
-      existentUser,
-    );
 
     if (!existentUser) {
       throw new HttpException('Invalid document', HttpStatus.FORBIDDEN);

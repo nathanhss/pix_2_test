@@ -8,10 +8,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUser } from 'src/domain/users/use-cases/create-user';
-import { FindUser } from 'src/domain/users/use-cases/find-user';
-import { RemoveUser } from 'src/domain/users/use-cases/remove-user';
-import { UpdateUser } from 'src/domain/users/use-cases/update-user';
+import { CreateUser } from '@domain/users/use-cases/create-user';
+import { FindUser } from '@domain/users/use-cases/find-user';
+import { RemoveUser } from '@domain/users/use-cases/remove-user';
+import { UpdateUser } from '@domain/users/use-cases/update-user';
 import { CreateUserBody } from '../dtos/create-user-body';
 import { UsersViewModel } from '../view-models/users-view-model';
 import { UpdateUserBody } from '../dtos/update-user-body';

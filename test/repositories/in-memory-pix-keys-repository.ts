@@ -1,5 +1,5 @@
-import { PixKeys } from 'src/domain/pixKeys/entities/pix-keys';
-import { PixKeysRepository } from 'src/domain/pixKeys/repositories/pix-keys-repository';
+import { PixKeys } from '@domain/pixKeys/entities/pix-keys';
+import { PixKeysRepository } from '@domain/pixKeys/repositories/pix-keys-repository';
 
 export class InMemoryPixKeysRepository implements PixKeysRepository {
   pixKeys: PixKeys[] = [];
@@ -29,7 +29,9 @@ export class InMemoryPixKeysRepository implements PixKeysRepository {
   }
 
   async get(key: string): Promise<PixKeys> {
-    return this.pixKeys.find((pix) => pix.key === key);
+    const pix = this.pixKeys.find((pix) => pix.key === key);
+
+    return pix ? pix : null;
   }
 
   async remove(id: number): Promise<{ message: string }> {
@@ -38,7 +40,7 @@ export class InMemoryPixKeysRepository implements PixKeysRepository {
     this.pixKeys.splice(pixKeyIndex, 1);
 
     return {
-      message: 'User deleted!',
+      message: 'Pix key deleted!',
     };
   }
 

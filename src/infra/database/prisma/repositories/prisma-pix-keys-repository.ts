@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-import { PixKeys } from 'src/domain/pixKeys/entities/pix-keys';
-import { PixKeysRepository } from 'src/domain/pixKeys/repositories/pix-keys-repository';
+import { PixKeys } from '@domain/pixKeys/entities/pix-keys';
+import { PixKeysRepository } from '@domain/pixKeys/repositories/pix-keys-repository';
 import { PrismaPixKeysMapper } from '../mappers/prisma-pix-keys-mapper';
 import { PrismaService } from '../prisma.service';
 

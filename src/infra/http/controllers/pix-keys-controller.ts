@@ -9,11 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { CreatePixKey } from 'src/domain/pixKeys/use-cases/create-pix-key';
-import { GetPixKey } from 'src/domain/pixKeys/use-cases/get-pix-key';
-import { GetPixKeys } from 'src/domain/pixKeys/use-cases/get-pix-keys';
-import { RemovePixKey } from 'src/domain/pixKeys/use-cases/remove-pix-key';
-import { UpdatePixKey } from 'src/domain/pixKeys/use-cases/update-pix-key';
+import { CreatePixKey } from '@domain/pixKeys/use-cases/create-pix-key';
+import { GetPixKey } from '@domain/pixKeys/use-cases/get-pix-key';
+import { GetPixKeys } from '@domain/pixKeys/use-cases/get-pix-keys';
+import { RemovePixKey } from '@domain/pixKeys/use-cases/remove-pix-key';
+import { UpdatePixKey } from '@domain/pixKeys/use-cases/update-pix-key';
 import { CreatePixKeyBody } from '../dtos/create-pix-key-body';
 import { PixKeyViewModel } from '../view-models/pix-keys-view-model';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';

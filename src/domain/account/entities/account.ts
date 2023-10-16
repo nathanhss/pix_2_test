@@ -1,5 +1,5 @@
-import { PixKeysProps } from 'src/domain/pixKeys/entities/pix-keys';
-import { UserProps } from 'src/domain/users/entities/user';
+import { PixKeysProps } from '@domain/pixKeys/entities/pix-keys';
+import { UserProps } from '@domain/users/entities/user';
 
 type BankAccountProps = {
   balance: number;

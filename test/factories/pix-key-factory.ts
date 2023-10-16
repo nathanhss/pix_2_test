@@ -1,4 +1,4 @@
-import { PixKeys, PixKeysProps } from 'src/domain/pixKeys/entities/pix-keys';
+import { PixKeys, PixKeysProps } from '@domain/pixKeys/entities/pix-keys';
 
 type Override = Partial<PixKeysProps>;
 

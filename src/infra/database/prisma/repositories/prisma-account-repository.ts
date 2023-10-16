@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
-import { Account } from 'src/domain/account/entities/account';
-import { AccountRepository } from 'src/domain/account/repositories/account.repository';
+import { Account } from '@domain/account/entities/account';
+import { AccountRepository } from '@domain/account/repositories/account.repository';
 import { PrismaAccountMapper } from '../mappers/prisma-account-mapper';
 import { PrismaService } from '../prisma.service';
 

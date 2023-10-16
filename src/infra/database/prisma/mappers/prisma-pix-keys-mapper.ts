@@ -1,4 +1,4 @@
-import { PixKeys } from 'src/domain/pixKeys/entities/pix-keys';
+import { PixKeys } from '@domain/pixKeys/entities/pix-keys';
 import { PixKeys as RawPixKeys } from '@prisma/client';
 
 export class PrismaPixKeysMapper {

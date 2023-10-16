@@ -1,7 +1,7 @@
-import { Account } from 'src/domain/account/entities/account';
-import { AccountRepository } from 'src/domain/account/repositories/account.repository';
-import { PixKeys } from 'src/domain/pixKeys/entities/pix-keys';
-import { User } from 'src/domain/users/entities/user';
+import { Account } from '@domain/account/entities/account';
+import { AccountRepository } from '@domain/account/repositories/account.repository';
+import { PixKeys } from '@domain/pixKeys/entities/pix-keys';
+import { User } from '@domain/users/entities/user';
 
 export class InMemoryAccountRepository implements AccountRepository {
   users: User[] = [];
