@@ -1,12 +1,12 @@
-FROM node:alpine
+FROM node:latest
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npx prisma generate
+EXPOSE 3001
 
-EXPOSE 3016
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-CMD ["npm", "run", "start:dev"]
+CMD ["/start.sh"]
