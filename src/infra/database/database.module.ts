@@ -4,7 +4,9 @@ import { PixKeysRepository } from '@domain/pixKeys/repositories/pix-keys-reposit
 import { PrismaAccountRepository } from './prisma/repositories/prisma-account-repository';
 import { PrismaPixKeysRepository } from './prisma/repositories/prisma-pix-keys-repository';
 import { PrismaService } from './prisma/prisma.service';
+import { PrismaTransactionRepository } from './prisma/repositories/prisma-transaction-repository';
 import { PrismaUserRepository } from './prisma/repositories/prisma-users-repository';
+import { TransactionRepository } from '@domain/transactions/repositories/transactions-repository';
 import { UsersRepository } from '@domain/users/repositories/user-repository';
 
 @Module({
@@ -22,7 +24,16 @@ import { UsersRepository } from '@domain/users/repositories/user-repository';
       provide: PixKeysRepository,
       useClass: PrismaPixKeysRepository,
     },
+    {
+      provide: TransactionRepository,
+      useClass: PrismaTransactionRepository,
+    },
   ],
-  exports: [UsersRepository, AccountRepository, PixKeysRepository],
+  exports: [
+    AccountRepository,
+    PixKeysRepository,
+    TransactionRepository,
+    UsersRepository,
+  ],
 })
 export class DatabaseModule {}

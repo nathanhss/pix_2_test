@@ -4,9 +4,11 @@ import { TransactionRepository } from '../repositories/transactions-repository';
 import { TransactionStatus } from '@helpers/transaction-status.enum';
 
 export interface EffectTransactionProps {
+  id: number;
   recipientKey: string;
   senderKey: string;
   status: string;
+  transactionId: string;
   value: number;
 }
 
@@ -20,6 +22,7 @@ export class EffectTransaction {
       senderKey: props.senderKey,
       status: TransactionStatus.PENDING,
       value: props.value,
+      transactionId: props.transactionId,
     });
 
     return await this.transactionRepository.effect(transactionToEffect);
