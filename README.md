@@ -16,7 +16,7 @@ After installing run:
 $ http://localhost:3001/api
 ```
 
-## Running the app local
+## Running the app locally
 
 ```bash
 # development
