@@ -12,7 +12,6 @@ async function bootstrap() {
       'Projeto desenvolvido como teste técnico para cargo de Desenvolvedor NodeJS - Pleno',
     )
     .setVersion('1.0')
-    .addTag('pix')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -2,7 +2,8 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { GetAccount } from '@domain/account/use-cases/get-account';
 import { AccountViewModel } from '../view-models/account-view-model';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Account')
 @Controller('account')
 @UseGuards(JwtAuthGuard)
 export class AccountController {

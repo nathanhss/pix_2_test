@@ -17,7 +17,9 @@ import { UsersViewModel } from '../view-models/users-view-model';
 import { UpdateUserBody } from '../dtos/update-user-body';
 import { RemoveUserBody } from '../dtos/remove-user-body';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('users')
 @UseGuards(JwtAuthGuard)
 export class UsersController {

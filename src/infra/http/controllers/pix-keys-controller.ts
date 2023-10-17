@@ -17,7 +17,9 @@ import { UpdatePixKey } from '@domain/pixKeys/use-cases/update-pix-key';
 import { CreatePixKeyBody } from '../dtos/create-pix-key-body';
 import { PixKeyViewModel } from '../view-models/pix-keys-view-model';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('PixKeys')
 @Controller('pix')
 @UseGuards(JwtAuthGuard)
 export class PixKeysController {
