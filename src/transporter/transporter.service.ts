@@ -11,8 +11,8 @@ export class TransporterService {
     return {
       transport: Transport.RMQ,
       options: {
-        urls: [this.configService.get<string>('RABBIT_MQ_URI')],
-        queue: this.configService.get<string>(`RABBIT_MQ_${queue}_QUEUE`),
+        urls: [this.configService.get<string>('CLOUDAMQP_URL')],
+        queue: 'pix_2',
         noAck,
         persistent: true,
       },
