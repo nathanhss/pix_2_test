@@ -1,14 +1,15 @@
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger/dist';
-import { TransporterService } from './transporter/transporter.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const messageService = app.get<TransporterService>(TransporterService);
-  app.connectMicroservice(messageService.getOptions('pix_2'));
 
+  //Swagger configuration
   const config = new DocumentBuilder()
     .setTitle('Pix 2')
     .setDescription(
@@ -18,7 +19,25 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  //Microservice configuration
+  const configService = app.get(ConfigService);
+
+  const url = configService.get('CLOUDAMQP_URL');
+  const queueName = configService.get('CLOUDAMQP_QUEUE');
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.RMQ,
+    options: {
+      urls: [url],
+      queue: queueName,
+      noAck: false,
+      queueOptions: {
+        durable: true,
+      },
+    },
+  });
   await app.startAllMicroservices();
+
   await app.listen(3001);
   console.log(`🚀 Application is running on: ${await app.getUrl()}`);
 }

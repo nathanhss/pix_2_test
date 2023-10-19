@@ -8,39 +8,67 @@ import {
 } from '@nestjs/common';
 import {
   ClientProxy,
+  Ctx,
   MessagePattern,
   Payload,
-  Ctx,
   RmqContext,
 } from '@nestjs/microservices';
-import { TransactionController } from 'src/infra/http/controllers/transaction-controller';
+import { SendToQueueBody } from './dtos/send-to-queue-body';
+import { TransporterService } from './transporter.service';
 
 @Controller('transporter')
 @UseInterceptors(ClassSerializerInterceptor)
 export class TransporterController {
   constructor(
     @Inject('MQ_SERVICE') private readonly subscribeTransaction: ClientProxy,
-    private readonly transactionController: TransactionController,
+    private readonly transporterService: TransporterService,
   ) {}
 
   @Post('send')
-  async sendToQueue(@Body() body: any) {
+  async sendToQueue(@Body() body: SendToQueueBody) {
     return this.subscribeTransaction.send(
       {
-        cmd: 'pix_2',
+        cmd: 'new-transaction',
       },
       body,
     );
   }
 
-  @MessagePattern({ cmd: 'pix_2' })
+  @MessagePattern({ cmd: 'new-transaction' })
   async addSubscriber(@Payload() subscriber: any, @Ctx() context: RmqContext) {
-    const newSubscriber = await this.transactionController.effect(subscriber);
+    const newTransaction =
+      await this.transporterService.effectTransationFromRMQ(subscriber);
 
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
     channel.ack(originalMsg);
 
-    return newSubscriber;
+    return newTransaction;
   }
+
+  // @MessagePattern({ cmd: 'pix_2' })
+  // async addSubscriber(@Payload() subscriber: any, @Ctx() context: RmqContext) {
+  //   const message = JSON.parse(
+  //     context.getMessage().toString(),
+  //   ) as RawTransaction;
+
+  //   const transaction = new Transaction(
+  //     {
+  //       recipientKey: message.recipientKey,
+  //       senderKey: message.senderKey,
+  //       status: message.status,
+  //       value: message.value,
+  //       createdAt: message.createdAt,
+  //       transactionId: message.transactionId,
+  //       updatedAt: message.updatedAt,
+  //     },
+  //     Number(message.id),
+  //   );
+
+  //   const channel = context.getChannelRef();
+  //   const originalMsg = context.getMessage();
+  //   channel.ack(originalMsg);
+
+  //   return newSubscriber;
+  // }
 }
