@@ -8,12 +8,12 @@ import { PrismaService } from 'src/infra/database/prisma/prisma.service';
 import { PrismaTransactionRepository } from 'src/infra/database/prisma/repositories/prisma-transaction-repository';
 import { TransactionController } from 'src/infra/http/controllers/transaction-controller';
 import { TransactionRepository } from '@domain/transactions/repositories/transactions-repository';
-import { TransporterController } from './transporter.controller';
+// import { TransporterController } from './transporter.controller';
 import { TransporterService } from './transporter.service';
 
 @Module({
   imports: [ConfigModule],
-  controllers: [TransporterController],
+  // controllers: [TransporterController],
   providers: [
     TransporterService,
     TransactionController,

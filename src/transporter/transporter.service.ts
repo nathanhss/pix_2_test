@@ -1,19 +1,26 @@
-import { RmqContext, RmqOptions, Transport } from '@nestjs/microservices';
-
-import { ConfigService } from '@nestjs/config';
-import { Injectable } from '@nestjs/common';
+import {
+  ClientProxy,
+  Ctx,
+  MessagePattern,
+  Payload,
+  RmqContext,
+} from '@nestjs/microservices';
+import { Inject, Injectable } from '@nestjs/common';
 import { TransactionController } from 'src/infra/http/controllers/transaction-controller';
+import { SendToQueueBody } from './dtos/send-to-queue-body';
+import { Transaction as RawTransaction } from '@prisma/client';
+import { TransactionStatus } from '@helpers/transaction-status.enum';
 
 @Injectable()
 export class TransporterService {
   constructor(
-    private readonly configService: ConfigService,
+    @Inject('MQ_SERVICE') private readonly subscribeTransaction: ClientProxy,
     private readonly transaction: TransactionController,
   ) {}
 
-  async effectTransationFromRMQ(body: any) {
+  async effectTransationFromRMQ(body: RawTransaction) {
     return await this.transaction.effect({
-      id: body.id,
+      id: Number(body.id),
       recipientKey: body.recipientKey,
       senderKey: body.senderKey,
       status: body.status,
@@ -22,16 +29,22 @@ export class TransporterService {
     });
   }
 
-  getOptions(queue: string, noAck = false): RmqOptions {
-    return {
-      transport: Transport.RMQ,
-      options: {
-        urls: [this.configService.get<string>('CLOUDAMQP_URL')],
-        queue: 'pix_2',
-        noAck,
-        persistent: true,
+  async sendToQueue(payload: SendToQueueBody) {
+    return this.subscribeTransaction.send(
+      {
+        cmd: 'new-transaction',
       },
-    };
+      payload,
+    );
+  }
+
+  @MessagePattern({ cmd: 'new-transaction' })
+  async effect(@Payload() subscriber: any, @Ctx() context: RmqContext) {
+    const payload = JSON.parse(subscriber);
+    payload['status'] = TransactionStatus.SUCCESS;
+
+    await this.effectTransationFromRMQ(payload);
+    this.ack(context);
   }
 
   ack(context: RmqContext) {
