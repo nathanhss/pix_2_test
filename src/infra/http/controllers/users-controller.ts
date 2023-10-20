@@ -21,7 +21,6 @@ import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User')
 @Controller('users')
-@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(
     private readonly createUser: CreateUser,
@@ -48,6 +47,7 @@ export class UsersController {
   }
 
   @Get('find')
+  @UseGuards(JwtAuthGuard)
   async find(@Query('cpf') cpf: string) {
     const response = await this.findUser.execute(cpf);
 
@@ -57,6 +57,7 @@ export class UsersController {
   }
 
   @Delete('remove')
+  @UseGuards(JwtAuthGuard)
   async remove(@Body() Body: RemoveUserBody) {
     const { cpf, birthDate } = Body;
 
@@ -67,6 +68,7 @@ export class UsersController {
   }
 
   @Put('update')
+  @UseGuards(JwtAuthGuard)
   async update(@Query('cpf') cpf: string, @Body() body: UpdateUserBody) {
     const { birthDate, firstName, lastName, mothersName } = body;
 

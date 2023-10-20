@@ -11,5 +11,5 @@ echo "seeding database...."
 npm run prisma:seed
 echo "seeding completed!"
 
-echo "starting development......."
-npm run start:dev
+echo "starting application......."
+npm run start
