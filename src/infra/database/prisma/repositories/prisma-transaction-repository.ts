@@ -96,4 +96,23 @@ export class PrismaTransactionRepository implements TransactionRepository {
       );
     }
   }
+
+  async register(transaction: Transaction): Promise<Transaction> {
+    try {
+      const raw = PrismaTransactionMapper.toPrisma(transaction);
+
+      delete raw.id;
+
+      const transactionRegistered = await this.prisma.transaction.create({
+        data: raw,
+      });
+
+      return PrismaTransactionMapper.toDomain(transactionRegistered);
+    } catch (error) {
+      throw new HttpException(
+        'Internal Server Error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

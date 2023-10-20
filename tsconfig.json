@@ -22,7 +22,8 @@
       "@auth/*":["./src/auth/*"],
       "@domain/*":["./src/domain/*"],
       "@helpers/*":["./src/helpers/*"],
-      "@infra/*":["./src/infra"],
+      "@infra/*":["./src/infra/*"],
+      "@transporter/*":["./src/transporter/*"],
       "@test/*":["./test/*"]
     }
   }

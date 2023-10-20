@@ -1,7 +1,9 @@
 import { AccountRepository } from '@domain/account/repositories/account.repository';
+import { BankAccountRepository } from '@domain/bankAccount/repositories/bank-account-repository';
 import { Module } from '@nestjs/common';
 import { PixKeysRepository } from '@domain/pixKeys/repositories/pix-keys-repository';
 import { PrismaAccountRepository } from './prisma/repositories/prisma-account-repository';
+import { PrismaBankAccountRepository } from './prisma/repositories/prisma-bank-account-repository';
 import { PrismaPixKeysRepository } from './prisma/repositories/prisma-pix-keys-repository';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaTransactionRepository } from './prisma/repositories/prisma-transaction-repository';
@@ -28,12 +30,17 @@ import { UsersRepository } from '@domain/users/repositories/user-repository';
       provide: TransactionRepository,
       useClass: PrismaTransactionRepository,
     },
+    {
+      provide: BankAccountRepository,
+      useClass: PrismaBankAccountRepository,
+    },
   ],
   exports: [
     AccountRepository,
     PixKeysRepository,
     TransactionRepository,
     UsersRepository,
+    BankAccountRepository,
   ],
 })
 export class DatabaseModule {}

@@ -21,10 +21,6 @@ export class PrismaPixKeysRepository implements PixKeysRepository {
 
       return PrismaPixKeysMapper.toDomain(createdPixKey);
     } catch (error) {
-      console.log(
-        '🚀 ~ file: prisma-pix-keys-repository.ts:24 ~ PrismaPixKeysRepository ~ create ~ error:',
-        error,
-      );
       throw new HttpException(
         'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -40,7 +36,7 @@ export class PrismaPixKeysRepository implements PixKeysRepository {
         },
       });
 
-      return PrismaPixKeysMapper.toDomain(pixKey);
+      return pixKey ? PrismaPixKeysMapper.toDomain(pixKey) : null;
     } catch (error) {
       throw new HttpException(
         'Internal Server Error',

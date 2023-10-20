@@ -9,6 +9,7 @@ import { DatabaseModule } from '../database/database.module';
 import { EffectTransaction } from '@domain/transactions/use-cases/effect-transaction';
 import { FindUser } from '@domain/users/use-cases/find-user';
 import { GetAccount } from '@domain/account/use-cases/get-account';
+import { GetBankAccount } from '@domain/bankAccount/use-cases/get-bank-account';
 import { GetPixKey } from '@domain/pixKeys/use-cases/get-pix-key';
 import { GetPixKeys } from '@domain/pixKeys/use-cases/get-pix-keys';
 import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
@@ -18,9 +19,11 @@ import { LocalStrategy } from '@auth/strategies/local.strategy';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { PixKeysController } from './controllers/pix-keys-controller';
+import { RegisterTransaction } from '@domain/transactions/use-cases/register-transaction';
 import { RemovePixKey } from '@domain/pixKeys/use-cases/remove-pix-key';
 import { RemoveUser } from '@domain/users/use-cases/remove-user';
 import { TransactionController } from './controllers/transaction-controller';
+import { UpdateBankAccount } from '@domain/bankAccount/use-cases/update-bank-account';
 import { UpdatePixKey } from '@domain/pixKeys/use-cases/update-pix-key';
 import { UpdateUser } from '@domain/users/use-cases/update-user';
 import { UsersController } from './controllers/users-controller';
@@ -57,10 +60,13 @@ import { UsersController } from './controllers/users-controller';
     JwtAuthGuard,
     JwtStrategy,
     LocalStrategy,
+    RegisterTransaction,
     RemovePixKey,
     RemoveUser,
     UpdatePixKey,
     UpdateUser,
+    GetBankAccount,
+    UpdateBankAccount,
   ],
 })
 export class HttpModule {}
