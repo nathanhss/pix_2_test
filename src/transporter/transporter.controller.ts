@@ -61,7 +61,7 @@ export class TransporterController {
   async effect(@Payload() message: RawTransaction, @Ctx() context: RmqContext) {
     message['status'] = TransactionStatus.SUCCESS;
 
-    await this.effectTransationFromRMQ({
+    const response = await this.effectTransationFromRMQ({
       id: Number(message.id),
       recipientKey: message.recipientKey,
       senderKey: message.senderKey,
@@ -74,12 +74,20 @@ export class TransporterController {
     const originalMsg = context.getMessage();
     channel.ack(originalMsg);
 
-    return originalMsg;
+    console.log(response);
+
+    return response.transaction.status === TransactionStatus.SUCCESS
+      ? {
+          message: 'Transaction was successfully',
+        }
+      : {
+          message: 'Transaction failed',
+        };
   }
 
   private async effectTransationFromRMQ(body: EffectTransaction) {
     try {
-      const response = await this.transactionController.effect({
+      return await this.transactionController.effect({
         id: Number(body.id),
         recipientKey: body.recipientKey,
         senderKey: body.senderKey,
@@ -87,8 +95,6 @@ export class TransporterController {
         transactionId: body.transactionId,
         value: body.value,
       });
-
-      return response;
     } catch (error) {
       throw new HttpException(
         'Error to effect transaction from transporter',
