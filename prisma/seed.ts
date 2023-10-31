@@ -6,13 +6,13 @@ async function main() {
   await prisma.user.create({
     data: {
       birthDate: '1999-04-19',
-      cpf: '04248943000',
-      firstName: 'Nathan',
-      lastName: 'Silva',
-      mothersName: 'Luciane Silva',
+      cpf: '12345678910',
+      firstName: 'John',
+      lastName: 'Lennon',
+      mothersName: 'Julia Lennon',
       PixKeys: {
         create: {
-          key: '04248943000',
+          key: '12345678910',
           keyName: 'cpf',
         },
       },
